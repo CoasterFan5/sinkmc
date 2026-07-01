@@ -28,7 +28,7 @@
 	:global(:root) {
 		--font: 'Geist Variable', sans-serif;
 		--background: #1b1b1b;
-		--accent: #232323;
+		--accent: #3d3d3d;
 		--text: #e7e7e7;
 		--primary: #6a2c9d;
 	}
