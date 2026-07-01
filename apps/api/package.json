@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "sinkmc-api",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
