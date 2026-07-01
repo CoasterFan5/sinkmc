@@ -1,10 +1,11 @@
 {
-  "name": "sinkc",
+  "name": "sinkmc",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "pnpm -r run dev",
-    "dev:web": "pnpm --filter sinmc-web dev"
+    "build:web": "pnpm --filter sinkmc-web run build",
+    "dev:web": "pnpm --filter sinkmc-web dev"
   }
 }
