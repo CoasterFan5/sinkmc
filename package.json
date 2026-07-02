@@ -4,8 +4,11 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "pnpm -r run dev",
-    "build:web": "pnpm --filter sinkmc-web run build",
-    "dev:web": "pnpm --filter sinkmc-web dev"
+    "dev": "pnpm --stream -r run dev",
+    "build:web": "dotenvx run -- pnpm --filter sinkmc-web run build",
+    "dev:web": "dotenvx run -- pnpm --filter sinkmc-web dev"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "^2.0.0"
   }
 }

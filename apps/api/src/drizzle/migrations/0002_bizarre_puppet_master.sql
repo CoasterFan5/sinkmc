@@ -1,0 +1,1 @@
+ALTER TABLE `tokens` RENAME COLUMN "scopres" TO "scopes";

@@ -44,6 +44,9 @@
 		"wrangler": "^4.106.0"
 	},
 	"dependencies": {
-		"@fontsource-variable/geist": "^5.2.9"
+		"@fontsource-variable/geist": "^5.2.9",
+		"@iconify-json/heroicons": "^1.2.3",
+		"hono": "^4.12.27",
+		"unplugin-icons": "^23.0.1"
 	}
 }

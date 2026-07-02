@@ -13,7 +13,7 @@
 	.sidebar {
 		min-width: 15rem;
 		height: 100%;
-		border-right: 1px solid var(--accent);
+		border-right: 1px solid var(--border);
 	}
 
 	.content {

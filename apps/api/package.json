@@ -2,12 +2,19 @@
   "name": "sinkmc-api",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --env-file ../../.env",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "wrangler d1 migrations apply sinkmc",
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
-    "hono": "^4.12.27"
+    "@hono/zod-validator": "^0.8.0",
+    "@paralleldrive/cuid2": "^3.3.0",
+    "drizzle-kit": "^0.31.8",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.12.27",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^26.1.0",

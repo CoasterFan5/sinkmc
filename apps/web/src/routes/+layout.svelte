@@ -2,6 +2,8 @@
 	import { resolve } from '$app/paths';
 	import favicon from '$lib/assets/favicon.svg';
 	import '@fontsource-variable/geist/wght.css';
+	import PersonIcon from '~icons/heroicons/user-circle';
+	import ExperimentalFlag from './ExperimentalFlag.svelte';
 
 	let { children } = $props();
 </script>
@@ -10,6 +12,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
+<ExperimentalFlag />
 <div class="wrap">
 	<nav class="nav">
 		<div class="left">
@@ -17,6 +20,10 @@
 		</div>
 		<div class="right">
 			<a class="navButton" href={resolve('/browse')}>Browse</a>
+			<div class="verticalLine"></div>
+			<a class="navButton accountButton" href={resolve('/(home)/auth')}>
+				<PersonIcon />
+			</a>
 		</div>
 	</nav>
 	<div class="content">
@@ -28,7 +35,8 @@
 	:global(:root) {
 		--font: 'Geist Variable', sans-serif;
 		--background: #1b1b1b;
-		--accent: #3d3d3d;
+		--border: #303030;
+		--accent: #292929;
 		--text: #e7e7e7;
 		--primary: #6a2c9d;
 	}
@@ -43,6 +51,9 @@
 	.wrap {
 		height: 100vh;
 		width: 100%;
+		overflow-y: hidden;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.header {
@@ -55,20 +66,44 @@
 
 	.nav {
 		padding: 1rem 5%;
-		border-bottom: 1px solid var(--accent);
+		border-bottom: 1px solid var(--border);
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
 	}
 
+	.right {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+		height: 100%;
+		position: relative;
+	}
+
 	.navButton {
 		color: var(--font);
 		text-decoration: none;
 		padding: 0.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.accountButton {
+		color: var(--font);
+		text-decoration: none;
+		padding: 0.25rem;
+		border-radius: 0.25rem;
+		font-size: 1rem;
 	}
 
 	.content {
 		height: 100%;
+	}
+
+	.verticalLine {
+		background-color: var(--border);
+		width: 1px;
 	}
 </style>
