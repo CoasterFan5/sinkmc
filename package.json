@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "pnpm --stream -r run dev",
     "build:web": "dotenvx run -- pnpm --filter sinkmc-web run build",
+    "deploy:web": "pnpm --filter sinkmc-web run deploy",
     "dev:web": "dotenvx run -- pnpm --filter sinkmc-web dev"
   },
   "dependencies": {

@@ -1,0 +1,25 @@
+export const taxonomy = {
+  platforms: [
+    "Paper",
+    "Spigot",
+    "Bukkit",
+    "Folia",
+    "Purpur",
+    "Sponge",
+    "Waterfall",
+    "Velocity",
+    "BungeeCord",
+  ],
+  categories: [
+    "Administration",
+    "Security",
+    "Social",
+    "Optimization",
+    "Mechanics",
+    "Libraries",
+    "World Generation",
+    "Economy",
+    "Cosmetics",
+    "Minigames",
+  ],
+} as const;
