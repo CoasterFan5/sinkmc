@@ -5,7 +5,8 @@
     "dev": "wrangler dev --env-file ../../.env",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply sinkmc",
-    "deploy": "pnpm run db:migrate && wrangler deploy --minify",
+    "db:deploy:remote": "wrangler d1 migrations apply sinkmc --remote",
+    "deploy": "pnpm run db:deploy:remote && wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
