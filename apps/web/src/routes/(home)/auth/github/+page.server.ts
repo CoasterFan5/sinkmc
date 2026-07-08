@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { honoClient } from '$lib/server/hono';
+import { apiClient } from '$lib/server/hono';
 import { resolve } from '$app/paths';
 
 export const load: PageServerLoad = async (e) => {
@@ -10,7 +10,7 @@ export const load: PageServerLoad = async (e) => {
 		return error(400, 'Missing code');
 	}
 
-	const githubPostReq = await honoClient.api.v1.auth.github.$post({
+	const githubPostReq = await apiClient.v1.auth.github.$post({
 		json: {
 			code: code
 		}
@@ -18,7 +18,10 @@ export const load: PageServerLoad = async (e) => {
 
 	if (!githubPostReq.ok) {
 		const b = await githubPostReq.json();
-		console.error(b);
+		console.error({
+			error: githubPostReq.statusText,
+			body: b
+		});
 		if (githubPostReq.status == 401) {
 			throw redirect(303, resolve('/auth'));
 		}
