@@ -1,4 +1,5 @@
+import { env } from '$env/dynamic/private';
 import type { AppType } from '../../../../api/src/index.ts';
 import { hc } from 'hono/client';
 
-export const honoClient = hc<AppType>('http://localhost:8787/');
+export const honoClient = hc<AppType>(env.API_URL);
