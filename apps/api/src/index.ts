@@ -3,7 +3,7 @@ import { v1 } from "./v1";
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
-const routes = app.route("/api/v1/", v1).get("/status", (c) => {
+const routes = app.route("/v1/", v1).get("/status", (c) => {
   return c.json({
     message: "Looks good to me!",
   });
