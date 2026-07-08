@@ -6,6 +6,7 @@ import { getDb } from "../../drizzle/db";
 import { loginsTable, usersTable } from "../../drizzle/schema";
 import { and, eq } from "drizzle-orm";
 import { createSession } from "../../utils/createSession";
+import { safeDbQuery } from "../../utils/safeDbQuery";
 
 const githubUserZodSchema = z.object({
   login: z.string(),
@@ -118,19 +119,31 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
 
     // check for an existing login
     const db = getDb(c.env);
-    const loginCheck = await db
-      .select()
-      .from(loginsTable)
-      .where(
-        and(
-          eq(loginsTable.provider, "GITHUB"),
-          eq(loginsTable.externalId, u.data.id.toString()),
-        ),
-      )
-      .get();
 
-    if (loginCheck) {
-      const newSession = await createSession(loginCheck.userId, c.env);
+    const loginCheck = await safeDbQuery(
+      db
+        .select()
+        .from(loginsTable)
+        .where(
+          and(
+            eq(loginsTable.provider, "GITHUB"),
+            eq(loginsTable.externalId, u.data.id.toString()),
+          ),
+        ).get,
+    );
+
+    if (!loginCheck.ok) {
+      return c.json(
+        {
+          code: "INTERNAL_ERROR",
+          message: "Failed to check login",
+        },
+        500,
+      );
+    }
+
+    if (loginCheck.data) {
+      const newSession = await createSession(loginCheck.data.userId, c.env);
       if (!newSession) {
         return c.json(
           {
