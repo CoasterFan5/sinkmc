@@ -22,7 +22,8 @@ export const loginsTable = sqliteTable("logins", {
 });
 
 export const tokens = sqliteTable("tokens", {
-  id: text().notNull().unique(),
+  id: text().notNull().unique().$defaultFn(createId),
+  tokenHash: text().notNull().unique(),
   userId: text()
     .notNull()
     .references(() => usersTable.id, {

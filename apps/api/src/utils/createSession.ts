@@ -17,7 +17,7 @@ export const createSession = async (
     const t = await db
       .insert(tokens)
       .values({
-        id: tokenHash,
+        tokenHash: tokenHash,
         userId: userId,
         type: "WEB_SESSION",
         name: "User Session Token",
