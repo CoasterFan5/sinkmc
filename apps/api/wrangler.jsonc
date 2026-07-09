@@ -26,7 +26,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
-      "binding": "sinkmc",
+      "binding": "sinkDB",
       "database_name": "sinkmc",
       "database_id": "25ee06b0-5c3f-401d-b185-33f60a9b5a44",
       "migrations_dir": "./src/drizzle/migrations",
