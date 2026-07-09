@@ -12,6 +12,6 @@ export const user = new Hono<{ Bindings: CloudflareBindings }>()
 
     return c.json({
       user: u,
-      tokenData,
+      session: tokenData,
     });
   });

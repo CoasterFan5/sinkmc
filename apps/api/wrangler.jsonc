@@ -4,7 +4,7 @@
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "api",
+  "name": "sinkmc-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-01",
   "assets": {
@@ -26,9 +26,9 @@
   "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
-      "binding": "sinkDB",
+      "binding": "sinkmc",
       "database_name": "sinkmc",
-      "database_id": "4e656062-5745-4ec8-b2ea-79960b7b4285",
+      "database_id": "25ee06b0-5c3f-401d-b185-33f60a9b5a44",
       "migrations_dir": "./src/drizzle/migrations",
     },
   ],
