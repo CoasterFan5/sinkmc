@@ -6,7 +6,7 @@ import { tokens, usersTable } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
 import { JwtTokenIssuedAt } from "hono/utils/jwt/types";
 
-type TokenWithoutHash = Omit<typeof tokens.$inferSelect, "tokenHash">;
+export type TokenWithoutHash = Omit<typeof tokens.$inferSelect, "tokenHash">;
 
 export const auth = createMiddleware<{
   Bindings: CloudflareBindings;

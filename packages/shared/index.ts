@@ -23,3 +23,6 @@ export const taxonomy = {
     "Minigames",
   ],
 } as const;
+
+export const categories = taxonomy.categories;
+export const platforms = taxonomy.platforms;

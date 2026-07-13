@@ -1,5 +1,7 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createId } from "@paralleldrive/cuid2";
+import { Scope } from "../utils/scopes";
+import { categories } from "@repo/taxonomy";
 
 export const usersTable = sqliteTable("users", {
   id: text().notNull().unique().$defaultFn(createId),
@@ -33,10 +35,27 @@ export const tokens = sqliteTable("tokens", {
     enum: ["WEB_SESSION", "API_KEY"],
   }),
   name: text(),
-  scopes: text({ mode: "json" }).$type<string[]>().notNull(),
+  scopes: text({ mode: "json" }).$type<Scope[]>().notNull(),
 
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
     () => new Date(),
   ),
   expiresAt: integer("expires_at", { mode: "timestamp" }),
+});
+
+export const resourcesTable = sqliteTable("resources", {
+  id: text().primaryKey().$defaultFn(createId),
+  ownerId: text()
+    .notNull()
+    .references(() => usersTable.id),
+  name: text().notNull(),
+  slug: text().notNull().unique(),
+  description: text().notNull(),
+  category: text({
+    enum: categories,
+  }).notNull(),
+  price: integer().notNull().default(0),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
+    () => new Date(),
+  ),
 });

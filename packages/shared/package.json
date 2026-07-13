@@ -1,11 +1,13 @@
 {
-  "name": "shared",
+  "name": "@repo/taxonomy",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Shared taxonomy for SinkMC",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
   },
+  "types": "./index.ts",
+  "main": "./index.ts",
   "keywords": [],
   "author": "",
   "license": "ISC"
