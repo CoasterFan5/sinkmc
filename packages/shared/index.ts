@@ -12,6 +12,7 @@ export const taxonomy = {
   ],
   categories: [
     "Administration",
+    "Tools",
     "Security",
     "Social",
     "Optimization",

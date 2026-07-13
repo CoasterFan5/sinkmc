@@ -16,6 +16,7 @@ export const auth = createMiddleware<{
   };
 }>(async (c, next) => {
   const t = c.req.header("Authorization");
+  console.log(t);
   const token = t?.split(" ")[1];
 
   if (!token) {

@@ -6,7 +6,7 @@ import { auth } from "../../utils/authMiddleware";
  */
 export const user = new Hono<{ Bindings: CloudflareBindings }>()
   .use(auth)
-  .get("/session", async (c) => {
+  .get("/", async (c) => {
     const u = c.get("user");
     const tokenData = c.get("tokenData");
 

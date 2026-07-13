@@ -3,15 +3,21 @@ import { createId } from "@paralleldrive/cuid2";
 import { Scope } from "../utils/scopes";
 import { categories } from "@repo/taxonomy";
 
+const createSinkId = (prefix: string) => {
+  return () => {
+    return `${prefix}_${createId}`;
+  };
+};
+
 export const usersTable = sqliteTable("users", {
-  id: text().notNull().unique().$defaultFn(createId),
+  id: text().notNull().unique().$defaultFn(createSinkId("usr")),
   userName: text().notNull(),
   email: text().notNull().unique(),
   pfpUrl: text().notNull(),
 });
 
 export const loginsTable = sqliteTable("logins", {
-  id: text().notNull().unique().$defaultFn(createId),
+  id: text().notNull().unique().$defaultFn(createSinkId("lgn")),
   userId: text()
     .notNull()
     .references(() => usersTable.id, {
@@ -24,7 +30,7 @@ export const loginsTable = sqliteTable("logins", {
 });
 
 export const tokens = sqliteTable("tokens", {
-  id: text().notNull().unique().$defaultFn(createId),
+  id: text().notNull().unique().$defaultFn(createSinkId("tkn_id")),
   tokenHash: text().notNull().unique(),
   userId: text()
     .notNull()
@@ -44,7 +50,7 @@ export const tokens = sqliteTable("tokens", {
 });
 
 export const resourcesTable = sqliteTable("resources", {
-  id: text().primaryKey().$defaultFn(createId),
+  id: text().primaryKey().$defaultFn(createSinkId("res")),
   ownerId: text()
     .notNull()
     .references(() => usersTable.id),

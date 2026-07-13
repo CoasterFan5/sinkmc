@@ -1,35 +1,47 @@
 import { Hono } from "hono";
-import { auth } from "../../utils/authMiddleware";
+import { newResourceRouter } from "./create";
+import { getDb } from "../../drizzle/db";
+import { resourcesTable } from "../../drizzle/schema";
+import { and, eq, getTableColumns, SQL } from "drizzle-orm";
 import { zValidator } from "@hono/zod-validator";
 import z from "zod";
-import { categories } from "@repo/taxonomy";
-import { checkScopes } from "../../utils/scopes";
 
-const categoryEnum = z.enum(categories);
+export const resourcesRouter = new Hono<{ Bindings: CloudflareBindings }>()
+  .get(
+    "/",
+    zValidator(
+      "query",
+      z.object({
+        slug: z.string().optional(),
+        id: z.string().optional(),
+        ownerId: z.string().optional(),
+      }),
+    ),
+    async (c) => {
+      const db = getDb(c.env);
 
-const newResourceZodValidator = zValidator(
-  "json",
-  z.object({
-    name: z.string().min(1).max(128),
-    category: categoryEnum,
-    slug: z.string().min(3).max(32),
-    description: z.string().min(10).max(256),
-  }),
-);
+      const filters: SQL[] = [];
 
-export const resources = new Hono<{ Bindings: CloudflareBindings }>()
-  .get("/resources/:id", async (c) => {})
-  .use(auth)
-  .post("/resources", newResourceZodValidator, async (c) => {
-    // check for permissions
-    const tokenData = c.get("tokenData");
-    if (!checkScopes(tokenData.scopes, "resources:write")) {
+      const { slug, id, ownerId } = c.req.valid("query");
+
+      if (slug) {
+        filters.push(eq(resourcesTable.slug, slug));
+      }
+      if (id) {
+        filters.push(eq(resourcesTable.id, id));
+      }
+      if (ownerId) {
+        filters.push(eq(resourcesTable.ownerId, ownerId));
+      }
+
+      const items = await db
+        .select()
+        .from(resourcesTable)
+        .where(and(...filters));
+
       return c.json({
-        message: "Missing scope",
+        resources: items,
       });
-    }
-
-    const user = c.get("user");
-
-    await db;
-  });
+    },
+  )
+  .route("/", newResourceRouter);
