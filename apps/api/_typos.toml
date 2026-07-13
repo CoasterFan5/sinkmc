@@ -1,0 +1,2 @@
+[files]
+extend-exclude = [".wrangler", "node_modules", "worker-configuration.d.ts"]
