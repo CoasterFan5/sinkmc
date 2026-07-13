@@ -9,4 +9,8 @@ export const load: LayoutServerLoad = async (e) => {
 	if (!authData) {
 		throw redirect(301, resolve('/(home)/auth'));
 	}
+
+	return {
+		user: authData.user
+	};
 };

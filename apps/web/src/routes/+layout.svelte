@@ -21,7 +21,7 @@
 		<div class="right">
 			<a class="navButton" href={resolve('/browse')}>Browse</a>
 			<div class="verticalLine"></div>
-			<a class="navButton accountButton" href={resolve('/(home)/auth')}>
+			<a class="navButton accountButton" href={resolve('/(app)/dashboard')}>
 				<PersonIcon />
 			</a>
 		</div>
@@ -38,7 +38,12 @@
 		--border: #303030;
 		--accent: #292929;
 		--text: #e7e7e7;
-		--primary: #6a2c9d;
+		--primary: #ff8735;
+		--primary-10: color-mix(in srgb, var(--primary) 10%, transparent 90%);
+	}
+
+	:global(*) {
+		box-sizing: border-box;
 	}
 
 	:global(body) {
