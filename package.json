@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm --stream --parallel -r --workspace-concurrency=Infinity run dev",
+    "build:docs": "dotenvx run -- pnpm --filter sinkmc-docs run build",
     "build:web": "dotenvx run -- pnpm --filter sinkmc-web run build",
+    "deploy:docs": "pnpm --filter sinkmc-docs run deploy",
     "deploy:web": "pnpm --filter sinkmc-web run deploy",
     "dev:web": "dotenvx run -- pnpm --filter sinkmc-web dev"
   },
