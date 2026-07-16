@@ -6,9 +6,6 @@ export const load: PageServerLoad = async ({ params }) => {
 	const resourceInfo = await apiClient.v1.resources[':locator'].$get({
 		param: {
 			locator: params.slug
-		},
-		query: {
-			type: 'slug'
 		}
 	});
 
