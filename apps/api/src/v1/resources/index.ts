@@ -5,6 +5,9 @@ import { resourcesTable } from "../../drizzle/schema";
 import { and, eq, getTableColumns, SQL } from "drizzle-orm";
 import { zValidator } from "@hono/zod-validator";
 import z from "zod";
+import { singleResourceRouter } from "./singleResource";
+
+// this is the resources/:location route
 
 export const resourcesRouter = new Hono<{ Bindings: CloudflareBindings }>()
   .get(
@@ -44,4 +47,5 @@ export const resourcesRouter = new Hono<{ Bindings: CloudflareBindings }>()
       });
     },
   )
+  .route("/", singleResourceRouter)
   .route("/", newResourceRouter);

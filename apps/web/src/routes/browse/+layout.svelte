@@ -1,5 +1,12 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import DropDownIcon from '~icons/heroicons/chevron-down';
+
+	const {
+		children
+	}: {
+		children: Snippet<[]>;
+	} = $props();
 </script>
 
 <div class="wrap">
@@ -9,7 +16,9 @@
 			<span class="icon"><DropDownIcon /></span>
 		</button>
 	</div>
-	<div class="content"></div>
+	<div class="content">
+		{@render children?.()}
+	</div>
 </div>
 
 <style>

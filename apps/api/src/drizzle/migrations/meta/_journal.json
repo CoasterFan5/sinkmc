@@ -43,6 +43,13 @@
       "when": 1783956071980,
       "tag": "0005_smart_doomsday",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1784214452380,
+      "tag": "0006_nappy_risque",
+      "breakpoints": true
     }
   ]
 }
