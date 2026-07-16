@@ -1,2 +1,7 @@
 node_modules
 .env
+
+# Secret Files
+These are effectively to be used as scratch pads within the project, its where I put my curl commands when testing tbh.
+*.secret
+*.secret.md

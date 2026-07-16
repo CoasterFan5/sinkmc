@@ -9,7 +9,7 @@ export const taxonomy = {
     "Waterfall",
     "Velocity",
     "BungeeCord",
-  ],
+  ] as const,
   categories: [
     "Administration",
     "Tools",
@@ -22,7 +22,7 @@ export const taxonomy = {
     "Economy",
     "Cosmetics",
     "Minigames",
-  ],
+  ] as const,
 } as const;
 
 export const categories = taxonomy.categories;

@@ -5,7 +5,7 @@ import { categories, platforms } from "@repo/taxonomy";
 
 const createSinkId = (prefix: string) => {
   return () => {
-    return `${prefix}_${createId}`;
+    return `${prefix}_${createId()}`;
   };
 };
 
@@ -106,7 +106,7 @@ export const artifactsTable = sqliteTable("artifact", {
   platforms: text({
     mode: "json",
   })
-    .$type<typeof platforms>()
+    .$type<(typeof platforms)[number][]>()
     .notNull(),
   hash: text().notNull(),
   fileKey: text().notNull(),
