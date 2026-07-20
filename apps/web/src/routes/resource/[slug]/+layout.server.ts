@@ -1,8 +1,8 @@
 import { apiClient } from '$lib/server/hono';
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: LayoutServerLoad = async ({ params }) => {
 	const resourceInfo = await apiClient.v1.resources[':locator'].$get({
 		param: {
 			locator: params.slug

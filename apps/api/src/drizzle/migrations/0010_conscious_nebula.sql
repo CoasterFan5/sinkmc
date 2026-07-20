@@ -1,0 +1,1 @@
+ALTER TABLE `artifact` ADD `contentType` text DEFAULT 'application/octet-stream' NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE `artifact` ADD `fileSize` integer DEFAULT 0 NOT NULL;

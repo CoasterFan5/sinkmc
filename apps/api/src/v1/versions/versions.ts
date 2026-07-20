@@ -95,6 +95,19 @@ export const versions = new Hono<{
           400,
         );
       }
+
+      // while we are here, if we are dealing with a file over 10mb, just reject it (for now hehe).
+      // TODO: Better size enforcement system to add support for larger plugins & other resource types
+
+      if (file.size > 10_000_000) {
+        return c.json(
+          {
+            message: `File "${fk}" ("${file.name}") is over 10mb. If you really really need to upload this file, contact support.`,
+          },
+          400,
+        );
+      }
+
       basicFileInfo.push({
         file,
         supportedPlatforms: artifact.platforms,
@@ -198,6 +211,9 @@ export const versions = new Hono<{
           platforms: item.supportedPlatforms,
           hash: item.hash,
           fileKey: `/pl/${item.hash}`,
+          name: item.file.name,
+          fileSize: item.file.size,
+          contentType: item.file.type
         }),
       ),
     );

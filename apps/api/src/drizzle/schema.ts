@@ -1,4 +1,4 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createId } from "@paralleldrive/cuid2";
 import { Scope } from "../utils/scopes";
 import { categories, platforms } from "@repo/taxonomy";
@@ -90,24 +90,34 @@ export const versionsTable = sqliteTable("version", {
   ),
 });
 
-export const artifactsTable = sqliteTable("artifact", {
-  id: text().primaryKey().$defaultFn(createSinkId("artifact")),
-  versionId: text()
-    .notNull()
-    .references(() => versionsTable.id, {
-      onDelete: "cascade",
-    }),
-  resourceId: text()
-    .notNull()
-    .references(() => resourcesTable.id, {
-      onDelete: "cascade",
-    }),
-  supportedVersions: text({ mode: "json" }).$type<string[]>().notNull(),
-  platforms: text({
-    mode: "json",
-  })
-    .$type<(typeof platforms)[number][]>()
-    .notNull(),
-  hash: text().notNull(),
-  fileKey: text().notNull(),
-});
+export const artifactsTable = sqliteTable(
+  "artifact",
+  {
+    id: text().primaryKey().$defaultFn(createSinkId("artifact")),
+    versionId: text()
+      .notNull()
+      .references(() => versionsTable.id, {
+        onDelete: "cascade",
+      }),
+    resourceId: text()
+      .notNull()
+      .references(() => resourcesTable.id, {
+        onDelete: "cascade",
+      }),
+    supportedVersions: text({ mode: "json" }).$type<string[]>().notNull(),
+    platforms: text({
+      mode: "json",
+    })
+      .$type<(typeof platforms)[number][]>()
+      .notNull(),
+    hash: text().notNull(),
+    fileKey: text().notNull(),
+    name: text().notNull().default("Unnamed Artifact"),
+    fileSize: integer().notNull().default(0),
+    contentType: text().notNull().default("application/octet-stream"),
+    createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
+      () => new Date(),
+    ),
+  },
+  (t) => [index("resourceIdIndex").on(t.resourceId)],
+);

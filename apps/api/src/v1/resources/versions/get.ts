@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { resourceLookup } from "../../../utils/resourceLookup";
-import { versionsTable } from "../../../drizzle/schema";
-import { eq } from "drizzle-orm";
+import { artifactsTable, versionsTable } from "../../../drizzle/schema";
+import { desc, eq, inArray } from "drizzle-orm";
 
 export const getResourceVersion = new Hono<{
   Bindings: CloudflareBindings;
@@ -32,7 +32,24 @@ export const getResourceVersion = new Hono<{
   const versions = await db
     .select()
     .from(versionsTable)
-    .where(eq(versionsTable.resourceId, resource.data.id));
+    .where(eq(versionsTable.resourceId, resource.data.id)).orderBy(desc(versionsTable.createdAt));
 
-  return c.json(versions);
+  const versionItemIds = versions.map((item) => item.id);
+  const artifacts = await db
+    .select()
+    .from(artifactsTable)
+    .where(inArray(artifactsTable.versionId, versionItemIds));
+
+  console.log(artifacts);
+
+  //group
+  const artifactsByVersion = Map.groupBy(artifacts, (k) => k.versionId);
+  const response = versions.map((item) => {
+    return {
+      ...item,
+      artifacts: artifactsByVersion.get(item.id) ?? [],
+    };
+  });
+
+  return c.json(response);
 });

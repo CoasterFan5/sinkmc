@@ -1,0 +1,1 @@
+ALTER TABLE `artifact` ADD `created_at` integer;
