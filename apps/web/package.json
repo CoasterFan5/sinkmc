@@ -23,6 +23,7 @@
 		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^9.39.2",
 		"@libsql/client": "^0.17.0",
+		"@repo/taxonomy": "workspace:*",
 		"@sveltejs/adapter-auto": "^7.0.0",
 		"@sveltejs/adapter-cloudflare": "^7.2.9",
 		"@sveltejs/kit": "^2.50.2",
@@ -47,6 +48,7 @@
 		"@fontsource-variable/geist": "^5.2.9",
 		"@iconify-json/heroicons": "^1.2.3",
 		"hono": "^4.12.27",
-		"unplugin-icons": "^23.0.1"
+		"unplugin-icons": "^23.0.1",
+		"zod": "^4.4.3"
 	}
 }

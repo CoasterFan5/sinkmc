@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { createSizeString } from './createSizeString';
-	import CubeIcon from "~icons/heroicons/cube"
+	import CubeIcon from '~icons/heroicons/cube';
 
 	const {
 		data
@@ -13,42 +13,45 @@
 {#await data.versions}
 	Loading...
 {:then versions}
-    <div class='versions'>
-       	{#each versions as v (v.id)}
-		<div class="version">
-			<h2 class="versionString">{v.versionString}</h2>
-			<p class="desc">{v.description}</p>
-			<div class="artifacts">
-				{#each v.artifacts as artifact (artifact.id)}
-					<a target="_blank" rel="external" class="artifact" href="{data.API_URL}v1/resources/{artifact.resourceId}/download?hash={artifact.hash}">
-						<div class="left">
-						<CubeIcon/>
-							{artifact.name}
-						</div>
-						<div class="right">
-							{createSizeString(artifact.fileSize)}
-						</div>
-					</a>
-				{/each}
+	<div class="versions">
+		{#each versions as v (v.id)}
+			<div class="version">
+				<h2 class="versionString">{v.versionString}</h2>
+				<p class="desc">{v.description}</p>
+				<div class="artifacts">
+					{#each v.artifacts as artifact (artifact.id)}
+						<a
+							target="_blank"
+							rel="external"
+							class="artifact"
+							href="{data.API_URL}v1/resources/{artifact.resourceId}/download?hash={artifact.hash}"
+						>
+							<div class="left">
+								<CubeIcon />
+								{artifact.name}
+							</div>
+							<div class="right">
+								{createSizeString(artifact.fileSize)}
+							</div>
+						</a>
+					{/each}
+				</div>
 			</div>
-		</div>
-	{:else}
-		<p>No listed versions :(</p>
-	{/each}
-    </div>
-
+		{:else}
+			<p>No listed versions :(</p>
+		{/each}
+	</div>
 {/await}
 
 <style lang="scss">
-
-    .versions {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        justify-content: start;
-        width: 100%;
-        gap: 0.5rem;
-    }
+	.versions {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		justify-content: start;
+		width: 100%;
+		gap: 0.5rem;
+	}
 	.version {
 		background: var(--accent);
 		width: 100%;
@@ -83,11 +86,11 @@
 			text-decoration: none;
 
 			.left {
-    			display: flex;
-    			flex-direction: row;
-    			align-items: center;
-    			justify-content: center;
-    			gap: 0.25rem;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+				gap: 0.25rem;
 			}
 
 			&:hover {

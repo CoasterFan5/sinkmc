@@ -88,6 +88,9 @@ importers:
       unplugin-icons:
         specifier: ^23.0.1
         version: 23.0.1(svelte@5.56.4(@typescript-eslint/types@8.62.1))
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
     devDependencies:
       '@eslint/compat':
         specifier: ^2.0.2
@@ -98,6 +101,9 @@ importers:
       '@libsql/client':
         specifier: ^0.17.0
         version: 0.17.4
+      '@repo/taxonomy':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@sveltejs/adapter-auto':
         specifier: ^7.0.0
         version: 7.0.1(@sveltejs/kit@2.69.0(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.56.4(@typescript-eslint/types@8.62.1))(vite@7.3.6(@types/node@22.20.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.4(@typescript-eslint/types@8.62.1))(typescript@5.9.3)(vite@7.3.6(@types/node@22.20.0)(lightningcss@1.32.0)(tsx@4.22.4)(yaml@2.9.0)))

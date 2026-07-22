@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { RemoteFormIssue } from '@sveltejs/kit';
 	import type { ChangeEventHandler } from 'svelte/elements';
 
 	let {
@@ -7,7 +8,8 @@
 		placeholder = '',
 		value = $bindable(''),
 		onchange,
-		oninput
+		oninput,
+		issues
 	}: {
 		label: string;
 		name: string;
@@ -15,12 +17,19 @@
 		value?: string;
 		onchange?: ChangeEventHandler<HTMLInputElement>;
 		oninput?: ChangeEventHandler<HTMLInputElement>;
+		issues?: RemoteFormIssue[] | undefined;
 	} = $props();
 </script>
 
 <div class="wrap">
 	<label for={name}>{label}</label>
 	<input id={name} {name} {placeholder} bind:value {onchange} {oninput} />
+	{#if issues}
+		{@const issue = issues[0]}
+		<div class="errorMessage">
+			{issue.message}
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -54,5 +63,9 @@
 
 	input:focus {
 		border-color: var(--primary);
+	}
+
+	.errorMessage {
+		color: red;
 	}
 </style>

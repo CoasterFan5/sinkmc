@@ -37,8 +37,11 @@
 		--background: #1b1b1b;
 		--border: #303030;
 		--accent: #292929;
+		--accent-80: color-mix(in srgb, var(--accent) 80%, transparent 20%);
 		--text: #e7e7e7;
+		--text-40: color-mix(in srgb, var(--text) 40%, transparent 60%);
 		--primary: #ff8735;
+		--primary-25: color-mix(in srgb, var(--primary) 25%, transparent 75%);
 		--primary-10: color-mix(in srgb, var(--primary) 10%, transparent 90%);
 	}
 

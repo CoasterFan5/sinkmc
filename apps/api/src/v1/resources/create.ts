@@ -58,7 +58,7 @@ export const newResourceRouter = new Hono<{ Bindings: CloudflareBindings }>()
         {
           message: "Slug in use.",
         },
-        400,
+        409,
       );
     }
 
@@ -76,7 +76,7 @@ export const newResourceRouter = new Hono<{ Bindings: CloudflareBindings }>()
       return c.json({
         message: "resource created",
         resource: r[0],
-      });
+      }, 200);
     } catch (e) {
       return c.json(
         {
