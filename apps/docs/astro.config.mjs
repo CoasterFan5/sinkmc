@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 import cloudflare from "@astrojs/cloudflare";
+import starlightOpenAPIPlugin, { openAPISidebarGroups } from "starlight-openapi";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,6 +17,18 @@ export default defineConfig({
           href: "https://github.com/coasterfan5/sinkmc",
         },
       ],
+      plugins: [
+        starlightOpenAPIPlugin([{
+          base: "reference",
+          schema: "../api/openapi.json",
+          sidebar: {
+            label: "Api Reference"
+          },
+          snippets: {
+            operation: false,
+          },
+        }])
+      ],
       sidebar: [
         {
           label: "Guides",
@@ -24,13 +37,13 @@ export default defineConfig({
             { label: "Example Guide", slug: "guides/example" },
           ],
         },
-        {
-          label: "Reference",
-          items: [{ autogenerate: { directory: "reference" } }],
-        },
+        ...openAPISidebarGroups
       ],
     }),
   ],
+  output: 'static',
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    prerenderEnvironment: 'node',
+  }),
 });

@@ -4,6 +4,8 @@ import { user } from "./session/user";
 import { resourcesRouter } from "./resources";
 import { singleResourceRouter } from "./resources/singleResource";
 import { versions } from "./versions/versions";
+import { createRoute } from "@hono/zod-openapi";
+
 
 export const v1 = new Hono<{ Bindings: CloudflareBindings }>()
   .route("/auth", authApp)
