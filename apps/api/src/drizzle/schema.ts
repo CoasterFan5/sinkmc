@@ -1,6 +1,6 @@
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createId } from "@paralleldrive/cuid2";
-import { Scope } from "../utils/scopes";
+import { Scope } from "../lib/scopes";
 import { categories, platforms } from "@repo/taxonomy";
 
 const createSinkId = (prefix: string) => {

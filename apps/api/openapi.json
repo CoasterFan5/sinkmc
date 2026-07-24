@@ -6,6 +6,115 @@
   },
   "components": {
     "schemas": {
+      "sessionResp": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/user"
+          },
+          "token": {
+            "$ref": "#/components/schemas/token"
+          }
+        },
+        "required": [
+          "user",
+          "token"
+        ]
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "pfpUrl": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "userName",
+          "email",
+          "pfpUrl"
+        ]
+      },
+      "token": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "WEB_SESSION",
+              "API_KEY",
+              null
+            ]
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "scopes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "nullable": true
+              },
+              {
+                "type": "object",
+                "additionalProperties": {
+                  "nullable": true
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "nullable": true
+                }
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          },
+          "expiresAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "userId",
+          "type",
+          "name",
+          "scopes",
+          "createdAt",
+          "expiresAt"
+        ]
+      },
       "status": {
         "type": "object",
         "properties": {
@@ -21,6 +130,29 @@
     "parameters": {}
   },
   "paths": {
+    "/v1/session": {
+      "get": {
+        "security": [
+          {
+            "auth": [
+              "versions:write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about the user and token used to acquire the user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sessionResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/status": {
       "get": {
         "responses": {

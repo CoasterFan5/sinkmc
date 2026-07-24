@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { resourceLookup } from "../../../utils/resourceLookup";
+import { resourceLookup } from "../../../lib/resourceLookup";
 import { artifactsTable } from "../../../drizzle/schema";
 import { and, desc, eq, SQL } from "drizzle-orm";
 import { zValidator } from "@hono/zod-validator";

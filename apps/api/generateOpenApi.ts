@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
-import { fullApp } from "./src/app";
+import app from "./src";
 
-fullApp.doc("/doc", {
+app.doc("/doc", {
   openapi: "3.0.0",
   info: {
     version: "1.0.0",
@@ -9,7 +9,7 @@ fullApp.doc("/doc", {
   },
 });
 
-const response = await fullApp.request("/doc");
+const response = await app.request("/doc");
 const spec = await response.json();
 
 writeFileSync("./openapi.json", JSON.stringify(spec, null, 2));

@@ -5,8 +5,8 @@ import { z } from "zod/mini";
 import { getDb } from "../../drizzle/db";
 import { loginsTable, usersTable } from "../../drizzle/schema";
 import { and, eq } from "drizzle-orm";
-import { createSession } from "../../utils/createSession";
-import { safeDbQuery } from "../../utils/safeDbQuery";
+import { createSession } from "../../lib/createSession";
+import { safeDbQuery } from "../../lib/safeDbQuery";
 
 const githubUserZodSchema = z.object({
   login: z.string(),

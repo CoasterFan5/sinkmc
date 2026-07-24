@@ -2,16 +2,16 @@ import { zValidator } from "@hono/zod-validator";
 import { taxonomy } from "@repo/taxonomy";
 import { Hono } from "hono";
 import z from "zod";
-import { auth } from "../../utils/authMiddleware";
+import { auth } from "../../lib/authMiddleware";
 import { PluginInfo, pluginParser } from "./_utils/pluginParser";
-import { safeDbQuery } from "../../utils/safeDbQuery";
+import { safeDbQuery } from "../../lib/safeDbQuery";
 import {
   artifactsTable,
   resourcesTable,
   versionsTable,
 } from "../../drizzle/schema";
 import { and, eq } from "drizzle-orm";
-import { checkScopes } from "../../utils/scopes";
+import { checkScopes } from "../../lib/scopes";
 import crypto from "crypto";
 import { versionsZodValidator } from "./_utils/formZodObject";
 import { getDb } from "../../drizzle/db";

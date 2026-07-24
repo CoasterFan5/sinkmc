@@ -1,12 +1,12 @@
 import { Hono } from "hono";
-import { auth } from "../../utils/authMiddleware";
+import { auth } from "../../lib/authMiddleware";
 import { zValidator } from "@hono/zod-validator";
 import z from "zod";
-import { checkScopes } from "../../utils/scopes";
+import { checkScopes } from "../../lib/scopes";
 import { categories } from "@repo/taxonomy";
 import { getDb } from "../../drizzle/db";
 import { resourcesTable } from "../../drizzle/schema";
-import { safeDbQuery } from "../../utils/safeDbQuery";
+import { safeDbQuery } from "../../lib/safeDbQuery";
 import { eq } from "drizzle-orm";
 
 const categoryEnum = z.enum(categories);

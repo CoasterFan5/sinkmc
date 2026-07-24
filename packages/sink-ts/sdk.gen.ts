@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetStatusData, GetStatusResponses } from './types.gen';
+import type { GetStatusData, GetStatusResponses, GetV1SessionData, GetV1SessionResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -17,5 +17,7 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
+
+export const getV1Session = <ThrowOnError extends boolean = false>(options?: Options<GetV1SessionData, ThrowOnError>): RequestResult<GetV1SessionResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetV1SessionResponses, unknown, ThrowOnError>({ url: '/v1/session', ...options });
 
 export const getStatus = <ThrowOnError extends boolean = false>(options?: Options<GetStatusData, ThrowOnError>): RequestResult<GetStatusResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetStatusResponses, unknown, ThrowOnError>({ url: '/status', ...options });

@@ -1,9 +1,9 @@
 import { and, eq, type SQL } from "drizzle-orm";
 import { Hono } from "hono";
 import { resourcesTable } from "../../drizzle/schema";
-import { safeDbQuery } from "../../utils/safeDbQuery";
+import { safeDbQuery } from "../../lib/safeDbQuery";
 import { getDb } from "../../drizzle/db";
-import { resourceLookup } from "../../utils/resourceLookup";
+import { resourceLookup } from "../../lib/resourceLookup";
 
 export const singleResourceRouter = new Hono<{
   Bindings: CloudflareBindings;

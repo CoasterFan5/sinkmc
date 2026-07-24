@@ -1,6 +1,5 @@
-import { createRoute } from "@hono/zod-openapi"
+import { createRoute, OpenAPIHono } from "@hono/zod-openapi"
 import { z } from "@hono/zod-openapi"
-import { app } from "./utils/honoApp"
 
 const statusReturn = z.object({
   message: z.string()
@@ -21,7 +20,9 @@ const statusRoute = createRoute({
   }
 })
 
-app.openapi(statusRoute, async (c) => {
+export const status = new OpenAPIHono<{ Bindings: CloudflareBindings }>()
+
+status.openapi(statusRoute, async (c) => {
   return c.json({
     message: "Looking good!"
   }, 200)
