@@ -12,13 +12,13 @@
           "user": {
             "$ref": "#/components/schemas/user"
           },
-          "token": {
+          "session": {
             "$ref": "#/components/schemas/token"
           }
         },
         "required": [
           "user",
-          "token"
+          "session"
         ]
       },
       "user": {
@@ -115,6 +115,21 @@
           "expiresAt"
         ]
       },
+      "authResponseSchema": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "tokenHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "tokenHash"
+        ]
+      },
       "status": {
         "type": "object",
         "properties": {
@@ -146,6 +161,116 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/sessionResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A private route to handle generation of tokens and auth. This route will not work if the code query param is not generated using the correct oAuth app.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "BAD_TOKEN"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "EXPIRED_CREDENTIALS",
+                        "NO_VERIFIED_EMAIL"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_ERROR",
+                        "EXISTING_ACCOUNT"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
                 }
               }
             }

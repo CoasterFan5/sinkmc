@@ -1,6 +1,6 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { status } from "./status";
-import { v1 } from "./v1";
+import { v1 } from "./v1/route";
 import { trimTrailingSlash } from "hono/trailing-slash";
 
 

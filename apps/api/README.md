@@ -1,21 +1,18 @@
-```txt
-npm install
-npm run dev
-```
+# Readme
+For naming routes, check the routing conventions. 
 
-```txt
-npm run deploy
-```
-
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
-
-```txt
-npm run cf-typegen
-```
-
-Pass the `CloudflareBindings` as generics when instantiating `Hono`:
-
+## Error Handling
+Define errors in the schema using the helper function `createErrorSchemaObject` with a constant array of strings. So for instances: 
 ```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
+createErrorSchemaObject(["BAD_TOKEN", "EXPIRED_TOKEN"] as const)
 ```
+
+Then, throw the error from the route: 
+```ts 
+return c.json({
+  code: "BAD_TOKEN" as const,
+  message: "any string"
+})
+```
+
+The reason for this additional boiler plate is so that error strings are enums instead of just strings, strictly enforced.

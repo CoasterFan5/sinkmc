@@ -1,12 +1,10 @@
-import { zValidator } from "@hono/zod-validator";
-import { env } from "cloudflare:workers";
-import { Hono } from "hono";
-import { z } from "zod/mini";
+import { OpenAPIHono, z } from "@hono/zod-openapi";
+import { auth_schema } from "./schema";
 import { getDb } from "../../drizzle/db";
 import { loginsTable, usersTable } from "../../drizzle/schema";
 import { and, eq } from "drizzle-orm";
-import { createSession } from "../../lib/createSession";
 import { safeDbQuery } from "../../lib/safeDbQuery";
+import { createSession } from "../../lib/createSession";
 
 const githubUserZodSchema = z.object({
   login: z.string(),
@@ -20,20 +18,14 @@ type GithubEmailsList = {
   verified: boolean;
 }[];
 
-export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
-  "github",
-  zValidator(
-    "json",
-    z.object({
-      code: z.string(),
-    }),
-  ),
+export const authRoute = new OpenAPIHono<{ Bindings: CloudflareBindings }>()
+authRoute.openapi(auth_schema,
   async (c) => {
     const { code } = c.req.valid("json");
 
     const fetchUrl = new URL("https://github.com/login/oauth/access_token");
-    fetchUrl.searchParams.set("client_id", env.GITHUB_CLIENT_ID);
-    fetchUrl.searchParams.set("client_secret", env.GITHUB_CLIENT_SECRET);
+    fetchUrl.searchParams.set("client_id", c.env.GITHUB_CLIENT_ID);
+    fetchUrl.searchParams.set("client_secret", c.env.GITHUB_CLIENT_SECRET);
     fetchUrl.searchParams.set("code", code);
 
     const ghReq = await fetch(fetchUrl, {
@@ -48,7 +40,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     if (!accessToken) {
       return c.json(
         {
-          code: "BAD_TOKEN",
+          code: "BAD_TOKEN" as const,
           message: "Invalid Token",
         },
         400,
@@ -77,7 +69,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     if (userReqAwaited.status == 401 || emailReqAwaited.status == 401) {
       return c.json(
         {
-          code: "EXPIRED_CREDENTIALS",
+          code: "EXPIRED_CREDENTIALS" as const,
           message: "OAuth credentials expired.",
         },
         401,
@@ -98,7 +90,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     if (!primaryVerifiedEmail) {
       return c.json(
         {
-          code: "NO_VERIFIED_EMAIL",
+          code: "NO_VERIFIED_EMAIL" as const,
           message: "No verified primary email",
         },
         401,
@@ -110,7 +102,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     if (u.error) {
       return c.json(
         {
-          code: "INTERNAL_ERROR",
+          code: "INTERNAL_ERROR" as const,
           message: "Could not verify user",
         },
         500,
@@ -135,7 +127,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     if (!loginCheck.ok) {
       return c.json(
         {
-          code: "INTERNAL_ERROR",
+          code: "INTERNAL_ERROR" as const,
           message: "Failed to check login",
         },
         500,
@@ -147,7 +139,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
       if (!newSession) {
         return c.json(
           {
-            code: "INTERNAL_ERROR",
+            code: "INTERNAL_ERROR" as const,
             message: "Failed to issue token",
           },
           500,
@@ -173,7 +165,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     if (userCheck != undefined) {
       return c.json(
         {
-          code: "EXISTING_ACCOUNT",
+          code: "EXISTING_ACCOUNT" as const,
           message: "An account with this email already exists",
         },
         500,
@@ -194,7 +186,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
       if (!id) {
         return c.json(
           {
-            code: "INTERNAL_ERROR",
+            code: "INTERNAL_ERROR" as const,
             message: "Issue creating account.",
           },
           500,
@@ -210,7 +202,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
       if (nu == undefined) {
         return c.json(
           {
-            code: "INTERNAL_ERROR",
+            code: "INTERNAL_ERROR" as const,
             message: "Issue creating login",
           },
           500,
@@ -220,7 +212,7 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
       if (!newSession) {
         return c.json(
           {
-            code: "INTERNAL_ERROR",
+            code: "INTERNAL_ERROR" as const,
             message: "Failed to issue token",
           },
           500,
@@ -237,11 +229,10 @@ export const authApp = new Hono<{ Bindings: CloudflareBindings }>().post(
     } catch (e) {
       return c.json(
         {
-          code: "INTERNAL_ERROR",
+          code: "INTERNAL_ERROR" as const,
           message: "Issue creating login and session",
         },
         500,
       );
     }
-  },
-);
+  })

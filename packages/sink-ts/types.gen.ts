@@ -6,7 +6,7 @@ export type ClientOptions = {
 
 export type SessionResp = {
     user: User;
-    token: Token;
+    session: Token;
 };
 
 export type User = {
@@ -28,6 +28,11 @@ export type Token = {
     expiresAt: string | null;
 };
 
+export type AuthResponseSchema = {
+    token: string;
+    tokenHash: string;
+};
+
 export type Status = {
     message: string;
 };
@@ -47,6 +52,50 @@ export type GetV1SessionResponses = {
 };
 
 export type GetV1SessionResponse = GetV1SessionResponses[keyof GetV1SessionResponses];
+
+export type PostV1AuthData = {
+    body?: {
+        code: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/v1/auth';
+};
+
+export type PostV1AuthErrors = {
+    /**
+     * Bad Request
+     */
+    400: {
+        code: 'BAD_TOKEN';
+        message: string;
+    };
+    /**
+     * Unauthorized
+     */
+    401: {
+        code: 'EXPIRED_CREDENTIALS' | 'NO_VERIFIED_EMAIL';
+        message: string;
+    };
+    /**
+     * Internal Error
+     */
+    500: {
+        code: 'INTERNAL_ERROR' | 'EXISTING_ACCOUNT';
+        message: string;
+    };
+};
+
+export type PostV1AuthError = PostV1AuthErrors[keyof PostV1AuthErrors];
+
+export type PostV1AuthResponses = {
+    /**
+     * A private route to handle generation of tokens and auth. This route will not work if the code query param is not generated using the correct oAuth app.
+     */
+    200: AuthResponseSchema;
+};
+
+export type PostV1AuthResponse = PostV1AuthResponses[keyof PostV1AuthResponses];
 
 export type GetStatusData = {
     body?: never;
