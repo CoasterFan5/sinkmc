@@ -8,7 +8,7 @@ const sessionReturnSchema = z.object({
   session: tokenApiObject,
 }).openapi("sessionResp")
 
-const authMiddleware = createAuthMiddleware(["versions:write"])
+const authMiddleware = createAuthMiddleware([])
 
 export const getSession_schema = createRoute({
   method: "get",

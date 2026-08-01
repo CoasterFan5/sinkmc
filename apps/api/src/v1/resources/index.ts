@@ -23,30 +23,7 @@ export const resourcesRouter = new Hono<{ Bindings: CloudflareBindings }>()
       }),
     ),
     async (c) => {
-      const db = getDb(c.env);
 
-      const filters: SQL[] = [];
-
-      const { slug, id, ownerId } = c.req.valid("query");
-
-      if (slug) {
-        filters.push(eq(resourcesTable.slug, slug));
-      }
-      if (id) {
-        filters.push(eq(resourcesTable.id, id));
-      }
-      if (ownerId) {
-        filters.push(eq(resourcesTable.ownerId, ownerId));
-      }
-
-      const items = await db
-        .select()
-        .from(resourcesTable)
-        .where(and(...filters));
-
-      return c.json({
-        resources: items,
-      });
     },
   )
   .route("/", getResourceVersion)

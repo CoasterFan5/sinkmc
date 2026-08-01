@@ -39,7 +39,7 @@ const openApiResponses: OpenApiResponse = {
         schema: zod_500
       }
     },
-    description: "An internal error occured."
+    description: "An internal error occurred."
   }
 }
 

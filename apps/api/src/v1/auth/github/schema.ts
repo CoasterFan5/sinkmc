@@ -1,6 +1,6 @@
 import { createRoute, z } from "@hono/zod-openapi";
-import { createErrorSchemaObject } from "../../lib/createErrorObject";
-import { createJsonContentSchema } from "../../lib/createJsonContentSchema";
+import { createErrorSchemaObject } from "../../../lib/createErrorObject";
+import { createJsonContentSchema } from "../../../lib/createJsonContentSchema";
 
 
 export const auth_schema = createRoute({

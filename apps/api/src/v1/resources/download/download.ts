@@ -17,7 +17,7 @@ export const resourceDownloads = new Hono<{
     }),
   ),
   async (c) => {
-    // TODO: Add filter for programatic downloads on the right platform and version
+    // TODO: Add filter for programmatic downloads on the right platform and version
 
     const { resource, db } = await resourceLookup(
       c.req.param("resourceLocator"),

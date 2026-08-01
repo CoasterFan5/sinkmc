@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noErrorTruncation": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -11,8 +12,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "types": [
-        "./worker-configuration.d.ts",
-        "node"
+      "./worker-configuration.d.ts",
+      "node"
     ]
   },
 }

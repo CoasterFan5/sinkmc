@@ -53,16 +53,16 @@ export type GetV1SessionResponses = {
 
 export type GetV1SessionResponse = GetV1SessionResponses[keyof GetV1SessionResponses];
 
-export type PostV1AuthData = {
+export type PostV1AuthGithubData = {
     body?: {
         code: string;
     };
     path?: never;
     query?: never;
-    url: '/v1/auth';
+    url: '/v1/auth/github';
 };
 
-export type PostV1AuthErrors = {
+export type PostV1AuthGithubErrors = {
     /**
      * Bad Request
      */
@@ -86,16 +86,110 @@ export type PostV1AuthErrors = {
     };
 };
 
-export type PostV1AuthError = PostV1AuthErrors[keyof PostV1AuthErrors];
+export type PostV1AuthGithubError = PostV1AuthGithubErrors[keyof PostV1AuthGithubErrors];
 
-export type PostV1AuthResponses = {
+export type PostV1AuthGithubResponses = {
     /**
      * A private route to handle generation of tokens and auth. This route will not work if the code query param is not generated using the correct oAuth app.
      */
     200: AuthResponseSchema;
 };
 
-export type PostV1AuthResponse = PostV1AuthResponses[keyof PostV1AuthResponses];
+export type PostV1AuthGithubResponse = PostV1AuthGithubResponses[keyof PostV1AuthGithubResponses];
+
+export type GetV1ResourcesByLocatorData = {
+    body?: never;
+    path: {
+        locator: string;
+    };
+    query?: never;
+    url: '/v1/resources/{locator}';
+};
+
+export type GetV1ResourcesByLocatorErrors = {
+    /**
+     * Resource not found
+     */
+    404: {
+        code: 'NOT_FOUND';
+        message: string;
+    };
+    /**
+     * Internal Error
+     */
+    500: {
+        code: 'INTERNAL_ERROR';
+        message: string;
+    };
+};
+
+export type GetV1ResourcesByLocatorError = GetV1ResourcesByLocatorErrors[keyof GetV1ResourcesByLocatorErrors];
+
+export type GetV1ResourcesByLocatorResponses = {
+    /**
+     * A single resource
+     */
+    200: {
+        resource: {
+            id: string;
+            ownerId: string;
+            name: string;
+            slug: string;
+            description: string;
+            category: 'Administration' | 'Tools' | 'Security' | 'Social' | 'Optimization' | 'Mechanics' | 'Libraries' | 'World Generation' | 'Economy' | 'Cosmetics' | 'Minigames';
+            price: number;
+            createdAt: string | null;
+            updatedAt: string | null;
+        };
+    };
+};
+
+export type GetV1ResourcesByLocatorResponse = GetV1ResourcesByLocatorResponses[keyof GetV1ResourcesByLocatorResponses];
+
+export type GetV1ResourcesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Filter resources by ownerId
+         */
+        ownerId?: string;
+    };
+    url: '/v1/resources';
+};
+
+export type GetV1ResourcesErrors = {
+    /**
+     * Internal Error
+     */
+    500: {
+        code: 'INTERNAL_ERROR';
+        message: string;
+    };
+};
+
+export type GetV1ResourcesError = GetV1ResourcesErrors[keyof GetV1ResourcesErrors];
+
+export type GetV1ResourcesResponses = {
+    /**
+     * A list of resources
+     */
+    200: {
+        resources: Array<{
+            id: string;
+            ownerId: string;
+            name: string;
+            slug: string;
+            description: string;
+            category: 'Administration' | 'Tools' | 'Security' | 'Social' | 'Optimization' | 'Mechanics' | 'Libraries' | 'World Generation' | 'Economy' | 'Cosmetics' | 'Minigames';
+            price: number;
+            createdAt: string | null;
+            updatedAt: string | null;
+        }>;
+    };
+};
+
+export type GetV1ResourcesResponse = GetV1ResourcesResponses[keyof GetV1ResourcesResponses];
 
 export type GetStatusData = {
     body?: never;
