@@ -97,6 +97,69 @@ export type PostV1AuthGithubResponses = {
 
 export type PostV1AuthGithubResponse = PostV1AuthGithubResponses[keyof PostV1AuthGithubResponses];
 
+export type GetV1ResourcesByLocatorVersionsData = {
+    body?: never;
+    path: {
+        locator: string;
+    };
+    query?: never;
+    url: '/v1/resources/{locator}/versions';
+};
+
+export type GetV1ResourcesByLocatorVersionsErrors = {
+    /**
+     * Something is not found
+     */
+    404: {
+        code: 'RESOURCE_NOT_FOUND';
+        message: string;
+    };
+    /**
+     * Internal Error
+     */
+    500: {
+        code: 'INTERNAL_ERROR';
+        message: string;
+    };
+};
+
+export type GetV1ResourcesByLocatorVersionsError = GetV1ResourcesByLocatorVersionsErrors[keyof GetV1ResourcesByLocatorVersionsErrors];
+
+export type GetV1ResourcesByLocatorVersionsResponses = {
+    /**
+     * A list of versions for a specific resource
+     */
+    200: {
+        versions: Array<{
+            id: string;
+            ownerId: string;
+            resourceId: string;
+            versionString: string;
+            description: string;
+            createdAt: string | null;
+            artifacts: Array<{
+                id: string;
+                versionId: string;
+                resourceId: string;
+                supportedVersions: string | number | boolean | unknown | {
+                    [key: string]: unknown;
+                } | Array<unknown>;
+                platforms: string | number | boolean | unknown | {
+                    [key: string]: unknown;
+                } | Array<unknown>;
+                hash: string;
+                fileKey: string;
+                name: string;
+                fileSize: number;
+                contentType: string;
+                createdAt: string | null;
+            }>;
+        }>;
+    };
+};
+
+export type GetV1ResourcesByLocatorVersionsResponse = GetV1ResourcesByLocatorVersionsResponses[keyof GetV1ResourcesByLocatorVersionsResponses];
+
 export type GetV1ResourcesByLocatorData = {
     body?: never;
     path: {
@@ -190,6 +253,58 @@ export type GetV1ResourcesResponses = {
 };
 
 export type GetV1ResourcesResponse = GetV1ResourcesResponses[keyof GetV1ResourcesResponses];
+
+export type PostV1ResourcesData = {
+    body?: {
+        name: string;
+        category: 'Administration' | 'Tools' | 'Security' | 'Social' | 'Optimization' | 'Mechanics' | 'Libraries' | 'World Generation' | 'Economy' | 'Cosmetics' | 'Minigames';
+        slug: string;
+        description: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/v1/resources';
+};
+
+export type PostV1ResourcesErrors = {
+    /**
+     * Duplicate Item
+     */
+    409: {
+        code: 'SLUG_IN_USE';
+        message: string;
+    };
+    /**
+     * Internal Error
+     */
+    500: {
+        code: 'INTERNAL_ERROR';
+        message: string;
+    };
+};
+
+export type PostV1ResourcesError = PostV1ResourcesErrors[keyof PostV1ResourcesErrors];
+
+export type PostV1ResourcesResponses = {
+    /**
+     * The resource object that has been created
+     */
+    200: {
+        resource: {
+            id: string;
+            ownerId: string;
+            name: string;
+            slug: string;
+            description: string;
+            category: 'Administration' | 'Tools' | 'Security' | 'Social' | 'Optimization' | 'Mechanics' | 'Libraries' | 'World Generation' | 'Economy' | 'Cosmetics' | 'Minigames';
+            price: number;
+            createdAt: string | null;
+            updatedAt: string | null;
+        };
+    };
+};
+
+export type PostV1ResourcesResponse = PostV1ResourcesResponses[keyof PostV1ResourcesResponses];
 
 export type GetStatusData = {
     body?: never;

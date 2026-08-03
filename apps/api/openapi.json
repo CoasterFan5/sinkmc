@@ -276,6 +276,299 @@
         }
       }
     },
+    "/v1/resources/{locator}/versions": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "example": "sink"
+            },
+            "required": true,
+            "name": "locator",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of versions for a specific resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "versions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "ownerId": {
+                            "type": "string"
+                          },
+                          "resourceId": {
+                            "type": "string"
+                          },
+                          "versionString": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "nullable": true,
+                            "format": "date-time"
+                          },
+                          "artifacts": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "versionId": {
+                                  "type": "string"
+                                },
+                                "resourceId": {
+                                  "type": "string"
+                                },
+                                "supportedVersions": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "nullable": true
+                                    },
+                                    {
+                                      "type": "object",
+                                      "additionalProperties": {
+                                        "nullable": true
+                                      }
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "nullable": true
+                                      }
+                                    }
+                                  ]
+                                },
+                                "platforms": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "nullable": true
+                                    },
+                                    {
+                                      "type": "object",
+                                      "additionalProperties": {
+                                        "nullable": true
+                                      }
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "nullable": true
+                                      }
+                                    }
+                                  ]
+                                },
+                                "hash": {
+                                  "type": "string"
+                                },
+                                "fileKey": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "fileSize": {
+                                  "type": "integer",
+                                  "minimum": -9007199254740991,
+                                  "maximum": 9007199254740991
+                                },
+                                "contentType": {
+                                  "type": "string"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "nullable": true,
+                                  "format": "date-time"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "versionId",
+                                "resourceId",
+                                "supportedVersions",
+                                "platforms",
+                                "hash",
+                                "fileKey",
+                                "name",
+                                "fileSize",
+                                "contentType",
+                                "createdAt"
+                              ],
+                              "example": {
+                                "id": "artifact_0",
+                                "versionId": "_",
+                                "resourceId": "_",
+                                "supportedVersions": [
+                                  "1.8.9",
+                                  "1.9.1"
+                                ],
+                                "platforms": [
+                                  "Paper"
+                                ],
+                                "hash": "_",
+                                "fileKey": "internal_property",
+                                "name": "plugin.jar",
+                                "fileSize": 0,
+                                "contentType": "application/octet-stream",
+                                "createdAt": "2026-08-01T16:40:25.000Z"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "ownerId",
+                          "resourceId",
+                          "versionString",
+                          "description",
+                          "createdAt",
+                          "artifacts"
+                        ],
+                        "example": {
+                          "id": "ver_0",
+                          "ownerId": "_",
+                          "resourceId": "_",
+                          "versionString": "1.0.0",
+                          "description": "A description of this version.",
+                          "createdAt": "2026-08-01T16:40:25.000Z",
+                          "artifacts": [
+                            {
+                              "id": "artifact_0",
+                              "versionId": "ver_0",
+                              "resourceId": "_",
+                              "supportedVersions": [
+                                "1.8.9",
+                                "1.9.1"
+                              ],
+                              "platforms": [
+                                "Paper"
+                              ],
+                              "hash": "_",
+                              "fileKey": "internal_property",
+                              "name": "plugin.jar",
+                              "fileSize": 0,
+                              "contentType": "application/octet-stream",
+                              "createdAt": "2026-08-01T16:40:25.000Z"
+                            },
+                            {
+                              "id": "artifact_3746",
+                              "versionId": "ver_0",
+                              "resourceId": "_",
+                              "supportedVersions": [
+                                "1.8.2",
+                                "1.8.9",
+                                "1.9.1"
+                              ],
+                              "platforms": [
+                                "Bukkit",
+                                "Spigot"
+                              ],
+                              "hash": "_",
+                              "fileKey": "internal_property",
+                              "name": "plugin-bukkit.jar",
+                              "fileSize": 0,
+                              "contentType": "application/octet-stream",
+                              "createdAt": "2026-08-01T16:40:25.000Z"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "versions"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Something is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "RESOURCE_NOT_FOUND"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_ERROR"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/resources/{locator}": {
       "get": {
         "parameters": [
@@ -532,6 +825,203 @@
                   },
                   "required": [
                     "resources"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "INTERNAL_ERROR"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "auth": [
+              "resources:write"
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "category": {
+                    "type": "string",
+                    "enum": [
+                      "Administration",
+                      "Tools",
+                      "Security",
+                      "Social",
+                      "Optimization",
+                      "Mechanics",
+                      "Libraries",
+                      "World Generation",
+                      "Economy",
+                      "Cosmetics",
+                      "Minigames"
+                    ]
+                  },
+                  "slug": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 32
+                  },
+                  "description": {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 256
+                  }
+                },
+                "required": [
+                  "name",
+                  "category",
+                  "slug",
+                  "description"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The resource object that has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resource": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "ownerId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "slug": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string",
+                          "enum": [
+                            "Administration",
+                            "Tools",
+                            "Security",
+                            "Social",
+                            "Optimization",
+                            "Mechanics",
+                            "Libraries",
+                            "World Generation",
+                            "Economy",
+                            "Cosmetics",
+                            "Minigames"
+                          ]
+                        },
+                        "price": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "nullable": true,
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "ownerId",
+                        "name",
+                        "slug",
+                        "description",
+                        "category",
+                        "price",
+                        "createdAt",
+                        "updatedAt"
+                      ],
+                      "example": {
+                        "id": "_",
+                        "ownerId": "_",
+                        "name": "My Cool Plugin",
+                        "slug": "my-cool-plugin",
+                        "description": "A very very neat plugin",
+                        "category": "Mechanics",
+                        "price": 0,
+                        "createdAt": "2026-08-01T16:40:25.000Z",
+                        "updatedAt": "2026-08-01T16:40:25.000Z"
+                      }
+                    }
+                  },
+                  "required": [
+                    "resource"
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Duplicate Item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "SLUG_IN_USE"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
                   ]
                 }
               }

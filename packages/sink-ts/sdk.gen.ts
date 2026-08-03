@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetStatusData, GetStatusResponses, GetV1ResourcesByLocatorData, GetV1ResourcesByLocatorErrors, GetV1ResourcesByLocatorResponses, GetV1ResourcesData, GetV1ResourcesErrors, GetV1ResourcesResponses, GetV1SessionData, GetV1SessionResponses, PostV1AuthGithubData, PostV1AuthGithubErrors, PostV1AuthGithubResponses } from './types.gen';
+import type { GetStatusData, GetStatusResponses, GetV1ResourcesByLocatorData, GetV1ResourcesByLocatorErrors, GetV1ResourcesByLocatorResponses, GetV1ResourcesByLocatorVersionsData, GetV1ResourcesByLocatorVersionsErrors, GetV1ResourcesByLocatorVersionsResponses, GetV1ResourcesData, GetV1ResourcesErrors, GetV1ResourcesResponses, GetV1SessionData, GetV1SessionResponses, PostV1AuthGithubData, PostV1AuthGithubErrors, PostV1AuthGithubResponses, PostV1ResourcesData, PostV1ResourcesErrors, PostV1ResourcesResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -29,8 +29,19 @@ export const postV1AuthGithub = <ThrowOnError extends boolean = false>(options?:
     }
 });
 
+export const getV1ResourcesByLocatorVersions = <ThrowOnError extends boolean = false>(options: Options<GetV1ResourcesByLocatorVersionsData, ThrowOnError>): RequestResult<GetV1ResourcesByLocatorVersionsResponses, GetV1ResourcesByLocatorVersionsErrors, ThrowOnError> => (options.client ?? client).get<GetV1ResourcesByLocatorVersionsResponses, GetV1ResourcesByLocatorVersionsErrors, ThrowOnError>({ url: '/v1/resources/{locator}/versions', ...options });
+
 export const getV1ResourcesByLocator = <ThrowOnError extends boolean = false>(options: Options<GetV1ResourcesByLocatorData, ThrowOnError>): RequestResult<GetV1ResourcesByLocatorResponses, GetV1ResourcesByLocatorErrors, ThrowOnError> => (options.client ?? client).get<GetV1ResourcesByLocatorResponses, GetV1ResourcesByLocatorErrors, ThrowOnError>({ url: '/v1/resources/{locator}', ...options });
 
 export const getV1Resources = <ThrowOnError extends boolean = false>(options?: Options<GetV1ResourcesData, ThrowOnError>): RequestResult<GetV1ResourcesResponses, GetV1ResourcesErrors, ThrowOnError> => (options?.client ?? client).get<GetV1ResourcesResponses, GetV1ResourcesErrors, ThrowOnError>({ url: '/v1/resources', ...options });
+
+export const postV1Resources = <ThrowOnError extends boolean = false>(options?: Options<PostV1ResourcesData, ThrowOnError>): RequestResult<PostV1ResourcesResponses, PostV1ResourcesErrors, ThrowOnError> => (options?.client ?? client).post<PostV1ResourcesResponses, PostV1ResourcesErrors, ThrowOnError>({
+    url: '/v1/resources',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
 
 export const getStatus = <ThrowOnError extends boolean = false>(options?: Options<GetStatusData, ThrowOnError>): RequestResult<GetStatusResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetStatusResponses, unknown, ThrowOnError>({ url: '/status', ...options });
